@@ -11,7 +11,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 import shoppinglist.com.shoppinglist.data.DummyLoader;
 import shoppinglist.com.shoppinglist.data.FileHandler;
@@ -19,6 +23,7 @@ import shoppinglist.com.shoppinglist.data.FileHandler;
 
 public class ShoppingList extends ActionBarActivity {
 
+    private GoogleApiClient mGoogleApiClient;
 
     ArrayList<ShoppingModel> data = null;
     @Override
@@ -89,6 +94,11 @@ public class ShoppingList extends ActionBarActivity {
                 return true;
             }
         });
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .build();
     }
 
     @Override
